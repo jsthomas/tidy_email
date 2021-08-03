@@ -5,5 +5,5 @@ type t = {
   text : string;
   html : string option;
   cc : string list;
-  bcc : string list
+  bcc : string list;
 }
