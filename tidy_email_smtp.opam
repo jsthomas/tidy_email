@@ -1,0 +1,26 @@
+opam-version: "2.0"
+
+synopsis: ""
+tags: []
+
+description: """
+"""
+
+license: "MIT"
+homepage: ""
+doc: ""
+bug-reports: ""
+dev-repo: ""
+
+author: ""
+maintainer: ""
+
+depends: [
+  "emile"
+  "letters"
+  "cohttp"
+]
+
+build: [
+  ["dune" "build" "-p" name "-j" jobs]
+]

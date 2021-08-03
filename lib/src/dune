@@ -1,0 +1,5 @@
+(library
+ (name tidy_email)
+ (public_name tidy_email)
+ (libraries emile lwt)
+)

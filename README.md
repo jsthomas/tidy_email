@@ -1,2 +1,4 @@
-# postal
-Send email from your OCaml applications without going nuts.
+# tidy-email
+
+This library wraps several different email services, to simplify the
+process of sending mail.
