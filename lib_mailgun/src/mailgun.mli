@@ -1,6 +1,6 @@
-module type Config = sig
-  val api_key: string
-  val base_url: string
+module Config : sig
+  type t
+  val make : api_key:string -> base_url:string -> t
 end
 
-module MailgunBackend (C : Config) : Tidy_email.Backend.S
+val send : Config.t -> Tidy_email.Email.t -> (unit, string) Lwt_result.t

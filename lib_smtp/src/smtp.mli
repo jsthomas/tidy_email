@@ -1,5 +1,3 @@
-module type Config = sig
-  val conf : Letters.Config.t
-end
+module Config = Letters.Config
 
-module SmtpBackend (C: Config) : Tidy_email.Backend.S
+val send: Config.t -> Tidy_email.Email.t -> (unit, string) Lwt_result.t
