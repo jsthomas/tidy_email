@@ -1,6 +1,3 @@
-module Config : sig
-  type t = Email.t list ref
-end
+type config = Email.t list ref
 
-
-val send : Config.t -> Email.t -> (unit, string) Lwt_result.t
+val send : config -> Email.t -> (unit, string) Lwt_result.t

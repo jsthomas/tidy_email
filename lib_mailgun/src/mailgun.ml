@@ -1,15 +1,9 @@
-module Email = Tidy_email.Email
+type config = {
+  api_key: string;
+  base_url: string
+}
 
-module Config = struct
-  type t = {
-    api_key: string;
-    base_url: string
-  }
-
-  let make ~api_key ~base_url = { api_key; base_url }
-end
-
-let send (conf: Config.t) (e: Email.t) =
+let send conf (e: Tidy_email.Email.t) =
     let open Cohttp in
     let open Cohttp_lwt_unix in
 

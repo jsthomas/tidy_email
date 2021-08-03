@@ -1,6 +1,6 @@
-module Config : sig
-  type t
-  val make : api_key:string -> base_url:string -> t
-end
+type config = {
+  api_key: string;
+  base_url: string
+}
 
-val send : Config.t -> Tidy_email.Email.t -> (unit, string) Lwt_result.t
+val send : config -> Tidy_email.Email.t -> (unit, string) Lwt_result.t

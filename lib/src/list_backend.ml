@@ -1,7 +1,5 @@
-module Config = struct
-  type t = Email.t list ref
-end
+type config = Email.t list ref
 
-let send (conf: Config.t) (e: Email.t) =
+let send (conf: config) (e: Email.t) =
   conf := e :: !conf;
   Lwt.return_ok ()
