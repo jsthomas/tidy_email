@@ -1,6 +1,0 @@
-(library
- (name tidy_email_sendgrid)
- (public_name tidy_email_sendgrid)
- (libraries lwt cohttp cohttp-lwt-unix tidy_email yojson)
- (preprocess (pps lwt_ppx))
-)
