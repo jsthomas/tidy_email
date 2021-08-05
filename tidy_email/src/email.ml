@@ -1,6 +1,6 @@
 type body =
-  | Text of string
-  | Html of string
+  | Text  of string
+  | Html  of string
   | Mixed of string * string * string option
 
 type t = {
@@ -13,11 +13,4 @@ type t = {
 }
 
 let make ~sender ~recipient ~subject ~body =
-  {
-    sender;
-    recipients=[recipient];
-    subject;
-    body;
-    cc=[];
-    bcc=[];
-  }
+  { sender; recipients = [recipient]; subject; body; cc = []; bcc = [] }

@@ -1,7 +1,8 @@
 type body =
-  | Text of string
-  | Html of string
-  | Mixed of string * string * string option  (* Text, HTML, and Boundary *)
+  | Text  of string
+  | Html  of string
+  | Mixed of string * string * string option
+(* Text, HTML, and Boundary *)
 
 type t = {
   sender : string;
@@ -12,9 +13,4 @@ type t = {
   bcc : string list;
 }
 
-val make :
-  sender:string ->
-  recipient:string ->
-  subject:string ->
-  body:body ->
-  t
+val make : sender:string -> recipient:string -> subject:string -> body:body -> t

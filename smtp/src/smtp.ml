@@ -4,11 +4,11 @@ let send config (e : Tidy_email.Email.t) =
   let sender = e.sender in
   let recipients = List.map (fun r -> Letters.To r) e.recipients in
   let subject = e.subject in
-  let body = match e.body with
+  let body =
+    match e.body with
     | Text t -> Letters.Plain t
     | Html h -> Letters.Html h
-    | Mixed (t,h,b) -> Letters.Mixed (t,h,b)
-  in
+    | Mixed (t, h, b) -> Letters.Mixed (t, h, b) in
   let mail = Letters.build_email ~from:sender ~recipients ~subject ~body in
   match mail with
   | Ok message -> (
