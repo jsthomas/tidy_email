@@ -17,9 +17,7 @@
  (depends
   (dune (>= 2.0))
   (ocaml (>= 4.11.0))
-  (emile (>= 1.1))
-  (cohttp (>= 2.5.5))
-  (cohttp-lwt-unix (>= 2.5.5))))
+  (lwt (>= 5.4.2))))
 
 (package
  (name tidy_email_mailgun)
