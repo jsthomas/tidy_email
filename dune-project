@@ -11,8 +11,13 @@
 (package
  (name tidy_email)
  (synopsis "An OCaml library that simplifies connecting to email services")
- (description
- "Tidy-email provides a consistent interface for sending email.")
+ (description "\
+Tidy-email provides a consistent interface for sending email.
+It provides types for sending messages via serveral different
+backend services (SMTP, Mailgun, etc.). Also included is a simple
+backend suitable for testing that captures messages without
+sending them.
+")
  (version 0.0.0)
  (depends
   (dune (>= 2.0))
@@ -21,7 +26,7 @@
 
 (package
  (name tidy_email_mailgun)
- (synopsis "An OCaml library that simplifies connecting to email services")
+ (synopsis "An OCaml library that simplifies connecting to Mailgun's REST API.")
  (description "")
  (version 0.0.0)
  (depends
