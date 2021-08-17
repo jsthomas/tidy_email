@@ -37,6 +37,18 @@ sending them.
   (tidy-email (>= 0.0.0))))
 
 (package
+ (name tidy_email_sendgrid)
+ (synopsis "An OCaml library that simplifies connecting to Sendgrid's REST API.")
+ (description "")
+ (version 0.0.0)
+ (depends
+  (dune (>= 2.0))
+  (ocaml (>= 4.11.0))
+  (cohttp (>= 2.5.5))
+  (cohttp-lwt-unix (>= 2.5.5))
+  (tidy-email (>= 0.0.0))))
+
+(package
  (name tidy_email_smtp)
  (synopsis "An OCaml library that simplifies connecting to SMTP servers.")
  (description "")
