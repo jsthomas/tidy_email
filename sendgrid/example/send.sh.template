@@ -1,0 +1,8 @@
+#!/bin/bash
+
+export SENDGRID_BASE_URL="https://api.sendgrid.com/v3/mail/send"
+export SENDGRID_API_KEY=""
+export FROM=""  # e.g. sender@domain1.com
+export TO=""    # e.g. receiver@domain2.com
+
+dune exec ./text_email.exe $FROM $TO

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+export MAILGUN_DOMAIN=""
+export MAILGUN_API_KEY=""
+export FROM="" # e.g. sender@domain1.com
+export TO="" # e.g. receiver@domain2.com
+export MAILGUN_BASE_URL="https://api.mailgun.net/v3/${MAILGUN_DOMAIN}"
+
+dune exec ./text_email.exe $FROM $TO

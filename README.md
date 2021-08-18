@@ -108,6 +108,21 @@ SES](https://docs.aws.amazon.com/ses/latest/dg/smtp-credentials.html)),
 so this is a useful option if you want to use `tidy-email` with a
 service that isn't supported by name yet.
 
+## Examples
+
+Each backend module (Mailgun, Sendgrid, and SMTP) contains a folder of
+examples. To run an example, copy the relevant `send.sh.template` file
+to `send.sh` and populate the missing environment
+variables. Running `./send.sh` should print:
+
+```
+Starting.
+Starting email send.
+Send succeeded.
+```
+
+and then a single message should appear in the destination inbox.
+
 ## How this package is tested
 
 There are two levels of testing in this project:

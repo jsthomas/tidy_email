@@ -1,0 +1,10 @@
+#!/bin/bash
+
+export SMTP_USERNAME=""
+export SMTP_PASSWORD=""
+export SMTP_HOSTNAME=""
+
+export FROM="" # e.g. sender@domain1.com
+export TO="" # e.g. receiver@dmain2.com
+
+dune exec ./html_email.exe $FROM $TO
