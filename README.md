@@ -32,7 +32,7 @@ covers **sending** email. Advanced features like managing email
 templates are not covered here. They could be added in the future;
 pull requests and suggestions are welcome.
 
-## Setting up a mail service.
+## Setting up a mail service
 
 This section contains tips for setting up email access.
 
