@@ -1,12 +1,15 @@
 # tidy_email
 
-This library wraps several different email services, to simplify the
-process of sending mail. The package `tidy_email` contains the
-definition for an email type and an email backend that can be used in
-tests (it accumulates emails in a list). An _email backend_ is simply
-a function that consumes a configuration object and produces a
-function for sending email. Other packages (e.g. `tidy_email_mailgun`)
-contain provider specific logic and depend on `tidy_email`.
+This library wraps several different email services and simplifies the
+process of sending mail.
+
+The package `tidy_email` contains the definition for an email type and
+an email backend that can be used in tests (it accumulates emails in a
+list). An _email backend_ is simply a function that consumes a
+configuration object and produces a function for sending email. In
+`tidy_email` these email-sending functions have a consistent
+signature. Related packages (e.g. `tidy_email_mailgun`) contain
+provider specific logic and depend on `tidy_email`.
 
 Using `tidy_email` makes it easier to hide some details of your email
 provider from the rest of your application. This library can simplify
@@ -21,15 +24,15 @@ Currently, `tidy_email` supports three different email integrations:
 (Both Mailgun and Sendgrid also support integrating with SMTP but
 recommend using their respective REST API.)
 
+## About Sendgrid and Mailgun
 
-# About Sendgrid and Mailgun
+Both Sendgrid and Mailgun have extensive REST APIs. These services can
+receive email as well as sending it. Currently, this library only
+covers **sending** email. Advanced features like managing email
+templates are not covered here. They could be added in the future;
+pull requests and suggestions are welcome.
 
-Both Sendgrid and Mailgun have extensive REST APIs. This library
-currently only covers **sending** email. Features like receiving email
-and managing email templates are not covered here. They could be added
-in the future; pull requests and suggestions are welcome.
-
-# Setting up with a mail service.
+## Setting up a mail service.
 
 This section contains tips for setting up email access.
 
@@ -52,13 +55,12 @@ with the automated email won't impact the delivery of emails from
 `foo.com` addresses (like `ceo@foo.com`). You can read more about this
 [here](https://www.mailgun.com/blog/the-basics-of-email-subdomains/).
 
-## Mailgun
+### Mailgun
 
-This service is easy to set up, even with a GMail or Protonmail
-account, and doesn't require a credit card until you begin setting up
-custom domains. The "sandbox domain" feature is quite helpful for
-running tests. This is the provider I recommend if you don't have your
-own domain or SMTP server.
+This service is easy to set up and doesn't require a credit card until
+you begin using custom domains. The "sandbox domain" feature is quite
+helpful for running tests. This is the provider I recommend if you
+don't have your own domain or SMTP server already.
 
 If you're using mailgun, you will need two pieces of information:
 
@@ -73,7 +75,7 @@ Note: If you're working with a sandbox domain, you will also need to
 configure which addresses the domain is allowed to send to. Expect
 messages from a sandbox domain to go to your spam folder.
 
-## Sendgrid
+### Sendgrid
 
 Sendgrid requires a company email and website when setting up an
 account. Using a generic email account (e.g. Protonmail, Gmail, etc.)
@@ -95,7 +97,7 @@ To use sendgrid with `tidy-email`, you will need:
    `https://api.sendgrid.com/v3/mail/send`, but check the console to
    confirm.
 
-## SMTP Server
+### SMTP Server
 
 This backend is the most generic. In order to utilize an SMTP server,
 you will need to obtain the hostname, username, and password for the
@@ -105,7 +107,7 @@ SES](https://docs.aws.amazon.com/ses/latest/dg/smtp-credentials.html)),
 so this is a useful option if you want to use `tidy-email` with a
 service that isn't supported by name yet.
 
-# How this package is tested
+## How this package is tested
 
 There are two levels of testing in this project:
 
@@ -117,10 +119,11 @@ The specifications for the end to end tests are captured in the
 can't be captured in a public CI system, but testing requires
 Mailgun/Sendgrid credentials that can't easily be shared.
 
-# Other Design Suggestions
+## Other Design Suggestions
 
 Sending an email is a fairly expensive operation; A REST API call to
-Mailgun or Sendgrid may take ~500 ms or more. You may wish to use some
-sort of queuing system and/or a background worker to handle this type
-of work. This [blog post](https://jsthomas.github.io/ocaml-email.html)
-provides suggestions about how to do this.
+Mailgun or Sendgrid may take ~500 ms or more. You may wish to use
+`tidy_email` together with some sort of queuing system and/or a
+background worker. This [blog
+post](https://jsthomas.github.io/ocaml-email.html) provides
+suggestions about how to do this.
