@@ -47,12 +47,12 @@ and MX) in order for email to work. Both Sendgrid and Mailgun provide
 straightforward instructions about which records to create.
 
 If you're planning on sending marketing email, other automated email,
-you may want to consider setting up a separate subdomain for that. For
-example, if you run `foo.com`, you might set up your automated email
-under `mail.foo.com`. Because the reputations for `foo.com` and
-`mail.foo.com` are distinct, having a subdomain ensures that a mistake
-with the automated email won't impact the delivery of emails from
-`foo.com` addresses (like `ceo@foo.com`). You can read more about this
+you may want to consider setting up a separate subdomain. For example,
+if you run `foo.com`, you might us `mail.foo.com` for automated
+email. Since the reputations for `foo.com` and `mail.foo.com` are
+distinct, a separate subdomain ensures that a mistake in your
+application won't impact the delivery of emails from `foo.com`
+addresses. You can read more about this
 [here](https://www.mailgun.com/blog/the-basics-of-email-subdomains/).
 
 ### Mailgun
@@ -62,18 +62,19 @@ you begin using custom domains. The "sandbox domain" feature is quite
 helpful for running tests. This is the provider I recommend if you
 don't have your own domain or SMTP server already.
 
-If you're using mailgun, you will need two pieces of information:
+You will need two pieces of information from the Mailgun console:
 
-1. An API key. You will need to create this in the mailgun
-   console. For sandbox domains, this should exist already.
+1. An API key. You may need to create this in the console first. For
+   sandbox domains, this should exist already.
 
 2. A "base url". In the US, this looks like
-   `https://api.mailgun.net/v3/<Your Domain>`. In the EU, it may
-   look slightly different, check the documentation.
+   `https://api.mailgun.net/v3/<Your Domain>`. In the EU, it may look
+   slightly different, check the documentation.
 
 Note: If you're working with a sandbox domain, you will also need to
 configure which addresses the domain is allowed to send to. Expect
-messages from a sandbox domain to go to your spam folder.
+messages from a sandbox domain to go to your spam folder (the relevant
+DNS records can't get set correctly because the domain is temporary).
 
 ### Sendgrid
 
@@ -88,7 +89,7 @@ Sendgrid account is fast. Sendgrid's REST API is somewhat more
 complicated than the one provided by Mailgun. Both services have a
 free tier and aren't terribly expensive for small volumes of mail.
 
-To use sendgrid with `tidy-email`, you will need:
+To use Sendgrid with `tidy-email`, you will need:
 
 1. An API key. You'll need to create this in the console and set the
    permissions accordingly.
