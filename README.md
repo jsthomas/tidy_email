@@ -143,3 +143,8 @@ Mailgun or Sendgrid may take ~500 ms or more. You may wish to use
 background worker. This [blog
 post](https://jsthomas.github.io/ocaml-email.html) provides
 suggestions about how to do this.
+
+## Acknowledgements
+
+The implementation of `tidy_email_sendgrid` is based on work in
+[Sihl](https://github.com/oxidizing/sihl).
