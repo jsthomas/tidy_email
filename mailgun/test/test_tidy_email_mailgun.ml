@@ -5,9 +5,9 @@
 
 open Lwt.Infix
 
-(* For these tests the content of the configuration and the email aren't especially important,
- *  there can just be one pair used across all tests.
- *)
+(* For these tests the content of the configuration and the email
+   aren't especially important, there can just be one pair used across
+   all tests. *)
 let config : Tidy_email_mailgun.Mailgun.config =
   { api_key = "12345"; base_url = "https://test.com/" }
 
@@ -61,7 +61,8 @@ let ok_response =
 |}
 
 let test_success _ () =
-  (* When Mailgun replies with a 200 OK, the function call produces an ok. *)
+  (* When Mailgun replies with a 200 OK, the function call produces an
+     ok. *)
   let client = post_form `OK ok_response in
   let sender = Tidy_email_mailgun.Mailgun.client_send client in
   sender config email >|= check_result "An ok is produced." (Ok ())
@@ -74,8 +75,8 @@ let bad_data_response =
 |}
 
 let test_bad_data _ () =
-  (* When Mailgun replies with a 400 Bad Request, the function call converts
-   *  the response to an error. *)
+  (* When Mailgun replies with a 400 Bad Request, the function call
+     converts the response to an error. *)
   let client = post_form `Bad_request bad_data_response in
   let sender = Tidy_email_mailgun.Mailgun.client_send client in
   sender config email
