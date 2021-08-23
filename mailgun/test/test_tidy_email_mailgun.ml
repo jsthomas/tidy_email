@@ -5,21 +5,21 @@
 
 open Lwt.Infix
 module Email = Tidy_email.Email
-
-(* For these tests the content of the configuration and the email
-   aren't especially important. There can just be one pair used across
-   all tests. *)
+module Mg = Tidy_email_mailgun.Mailgun
 
 let api_key = "test_password"
 
-let config : Tidy_email_mailgun.Mailgun.config =
+
+let config : Mg.config =
   { api_key;
     base_url = "https://api.com";
   }
 
+
 let text_body = Email.Text "Some text here."
 let html_body = Email.Html "Some html here."
 let mixed_body = Email.Mixed ("Some text here.", "Some html here.", None)
+
 
 let email body =
   Tidy_email.Email.make
@@ -27,6 +27,7 @@ let email body =
     ~recipient:"receiver@b.com"
     ~subject:"Some title."
     ~body
+
 
 let check_result =
   let testable =
@@ -38,6 +39,7 @@ let check_result =
     let formatter ppf value = Format.pp_print_string ppf (print value) in
     Alcotest.testable formatter eq in
   Alcotest.check testable
+
 
 let check_headers =
   let testable =
@@ -57,9 +59,9 @@ let check_headers =
 
 
 (* This mock allows us to represent different status/body combinations
-   that Mailgun's API might produce. Once we bind in a response
-   status, response body, and expected post body, we're left with an
-   http_post_form function.*)
+   that Mailgun's API might produce. Binding in a response status,
+   response body, and expected post body produces an http_post_form
+   function.*)
 let post_form (post_body: Tidy_email.Email.body) status body ?headers ~params uri =
   let open Cohttp in
   let response = Response.make ~status () in
@@ -84,10 +86,10 @@ let post_form (post_body: Tidy_email.Email.body) status body ?headers ~params ur
 
 
 let test_bad_credentials _ () =
-  (* When Mailgun replies with a 401 Unauthorized, because bad credentials
-     were supplied, an email send fails with an error. *)
+  (* When Mailgun replies with a 401 Unauthorized due to bad
+     credentials, the send fails with an error. *)
   let client = post_form text_body `Unauthorized "Forbidden" in
-  let sender = Tidy_email_mailgun.Mailgun.client_send client in
+  let sender = Mg.client_send client in
   email text_body
   |> sender config
   >|= check_result "An error is produced." (Error "Forbidden")
@@ -103,7 +105,7 @@ let test_bad_data _ () =
   (* When Mailgun replies with a 400 Bad Request, the function call
      converts the response to an error. *)
   let client = post_form text_body `Bad_request bad_data_response in
-  let sender = Tidy_email_mailgun.Mailgun.client_send client in
+  let sender = Mg.client_send client in
   email text_body
   |> sender config
   >|= check_result "An error is produced." (Error bad_data_response)
@@ -120,7 +122,7 @@ let test_success body =
   let test _ () =
     (* The backend produces an ok when Mailgun replies with a 200 OK.*)
     let client = post_form body `OK ok_response in
-    let sender = Tidy_email_mailgun.Mailgun.client_send client in
+    let sender = Mg.client_send client in
     email body |> sender config >|= check_result "An ok is produced." (Ok ())
   in
   test
