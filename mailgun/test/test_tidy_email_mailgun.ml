@@ -4,6 +4,7 @@
    Insomnia. *)
 
 open Lwt.Infix
+module Email = Tidy_email.Email
 
 (* For these tests the content of the configuration and the email
    aren't especially important. There can just be one pair used across
@@ -16,7 +17,9 @@ let config : Tidy_email_mailgun.Mailgun.config =
     base_url = "https://api.com";
   }
 
-let text_body = Tidy_email.Email.Text "Some text here."
+let text_body = Email.Text "Some text here."
+let html_body = Email.Html "Some html here."
+let mixed_body = Email.Mixed ("Some text here.", "Some html here.", None)
 
 let email body =
   Tidy_email.Email.make
@@ -113,29 +116,14 @@ let ok_response = {|
 }
 |}
 
-let test_success _ () =
-  (* When Mailgun replies with a 200 OK, the function call produces an
-     ok. *)
-  let client = post_form text_body `OK ok_response in
-  let sender = Tidy_email_mailgun.Mailgun.client_send client in
-  email text_body |> sender config >|= check_result "An ok is produced." (Ok ())
-
-
-let test_success_html _ () =
-  (* The library sends an HTML email request with the parameters Mailgun expects. *)
-  let body = Tidy_email.Email.Html "Some html here." in
-  let client = post_form body `OK ok_response in
-  let sender = Tidy_email_mailgun.Mailgun.client_send client in
-  email body |> sender config >|= check_result "An ok is produced." (Ok ())
-
-
-let test_success_mixed _ () =
-  (* The library sends a mixed text/HTML email request with the parameters Mailgun expects. *)
-  let body = Tidy_email.Email.Mixed ("Some text here.", "Some html here.", None) in
-  let client = post_form body `OK ok_response in
-  let sender = Tidy_email_mailgun.Mailgun.client_send client in
-  email body |> sender config >|= check_result "An ok is produced." (Ok ())
-
+let test_success body =
+  let test _ () =
+    (* The backend produces an ok when Mailgun replies with a 200 OK.*)
+    let client = post_form body `OK ok_response in
+    let sender = Tidy_email_mailgun.Mailgun.client_send client in
+    email body |> sender config >|= check_result "An ok is produced." (Ok ())
+  in
+  test
 
 let () =
   let open Alcotest_lwt in
@@ -146,12 +134,11 @@ let () =
            [
              test_case "Invalid Credentials" `Quick test_bad_credentials;
              test_case "Bad Data" `Quick test_bad_data;
-
            ] );
          ("email success cases",
           [
-            test_case "Success - Text" `Quick test_success;
-            test_case "Success - HTML" `Quick test_success_html;
-            test_case "Success - Mixed" `Quick test_success_mixed;
+            test_case "Success - Text" `Quick (test_success text_body);
+            test_case "Success - HTML" `Quick (test_success html_body);
+            test_case "Success - Mixed" `Quick (test_success mixed_body);
           ]);
        ]
