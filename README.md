@@ -130,6 +130,9 @@ There are two levels of testing in this project:
 1. Unit tests, as configured with `alcotest`.
 2. End-to-end tests that are run manually by maintainers.
 
+To run the unit tests, navigate to the root of the repository and run
+`dune test`.
+
 The specifications for the end to end tests are captured in the
 `/examples` folder of each library. It's unfortunate that these tests
 can't be captured in a public CI system, but testing requires

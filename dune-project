@@ -10,16 +10,17 @@
 
 (package
  (name tidy_email)
- (synopsis "An OCaml library that simplifies connecting to email services")
+ (synopsis "An OCaml library that simplifies connecting to email services.")
  (description "\
 Tidy-email provides a consistent interface for sending email.
-It provides types for sending messages via serveral different
+It defines types for sending messages via serveral different
 backend services (SMTP, Mailgun, etc.). Also included is a simple
 backend suitable for testing that captures messages without
 sending them.
 ")
  (version 0.0.0)
  (depends
+  (bisect_ppx (and :dev (>= "2.5.0")))
   (dune (>= 2.0))
   (ocaml (>= 4.11.0))
   (lwt (>= 5.4.2))))
@@ -30,6 +31,7 @@ sending them.
  (description "")
  (version 0.0.0)
  (depends
+  (bisect_ppx (and :dev (>= "2.5.0")))
   (dune (>= 2.0))
   (ocaml (>= 4.11.0))
   (cohttp (>= 2.5.5))
@@ -42,6 +44,7 @@ sending them.
  (description "")
  (version 0.0.0)
  (depends
+  (bisect_ppx (and :dev (>= "2.5.0")))
   (dune (>= 2.0))
   (ocaml (>= 4.11.0))
   (cohttp (>= 2.5.5))
@@ -54,6 +57,7 @@ sending them.
  (description "")
  (version 0.0.0)
  (depends
+  (bisect_ppx (and :dev (>= "2.5.0")))
   (dune (>= 2.0))
   (ocaml (>= 4.11.0))
   (letters (>= 0.2.1))

@@ -3,4 +3,5 @@
  (package tidy_email_mailgun)
  (libraries alcotest-lwt tidy_email_mailgun sexplib)
  (preprocess (pps lwt_ppx ppx_sexp_conv))
+ (instrumentation (backend bisect_ppx))
 )
