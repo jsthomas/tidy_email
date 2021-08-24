@@ -12,4 +12,5 @@ export MAILGUN_BASE_URL="https://api.mailgun.net/v3/${MAILGUN_DOMAIN}"
 # --html CLI flag.
 dune build
 cp ../../_build/default/mailgun/example/send.exe send
+chmod 700 send
 ./send $FROM $TO $@

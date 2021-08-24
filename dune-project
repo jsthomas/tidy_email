@@ -33,6 +33,7 @@ sending them.
  (depends
   (bisect_ppx (and :dev (>= "2.5.0")))
   (alcotest-lwt (and :dev (>= "1.4.0")))
+  (cmdliner (and :dev (>= "1.0.4")))
   (dune (>= 2.0))
   (ocaml (>= 4.11.0))
   (cohttp (>= 2.5.5))
@@ -48,6 +49,7 @@ sending them.
  (depends
   (bisect_ppx (and :dev (>= "2.5.0")))
   (alcotest-lwt (and :dev (>= "1.4.0")))
+  (cmdliner (and :dev (>= "1.0.4")))
   (dune (>= 2.0))
   (ocaml (>= 4.11.0))
   (cohttp (>= 2.5.5))
@@ -64,6 +66,7 @@ sending them.
  (depends
   (bisect_ppx (and :dev (>= "2.5.0")))
   (alcotest-lwt (and :dev (>= "1.4.0")))
+  (cmdliner (and :dev (>= "1.0.4")))
   (dune (>= 2.0))
   (ocaml (>= 4.11.0))
   (letters (>= 0.2.1))

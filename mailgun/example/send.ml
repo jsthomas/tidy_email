@@ -12,6 +12,7 @@ let html_body = Email.Html
   </html>
 |}
 
+let text_body = Email.Text "This is what a plain text email body looks like."
 
 let send use_html sender recipient =
   let config : Mailgun.config =
@@ -19,11 +20,8 @@ let send use_html sender recipient =
       api_key = Sys.getenv "MAILGUN_API_KEY";
       base_url = Sys.getenv "MAILGUN_BASE_URL";
     } in
-  let subject = "Test message from tidy-email." in
-  let body =
-    if use_html then html_body else
-      Email.Text "This is what a plain text email body looks like."
-  in
+  let subject = "Test message from tidy-email via Mailgun." in
+  let body = if use_html then html_body else text_body in
   let email = Email.make ~sender ~recipient ~subject ~body in
   Printf.printf "Starting email send.\n";
   let%lwt result = Mailgun.send config email in
