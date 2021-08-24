@@ -53,6 +53,7 @@ sending them.
   (cohttp (>= 2.5.5))
   (cohttp-lwt-unix (>= 2.5.5))
   (lwt_ppx (>= 2.0.0))
+  (yojson (>= 1.7.0))
   (tidy_email (= :version))))
 
 (package
