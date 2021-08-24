@@ -1,9 +1,15 @@
 #!/bin/bash
 
+set -e
+
 export MAILGUN_DOMAIN=""
 export MAILGUN_API_KEY=""
 export FROM="" # e.g. sender@domain1.com
 export TO="" # e.g. receiver@domain2.com
 export MAILGUN_BASE_URL="https://api.mailgun.net/v3/${MAILGUN_DOMAIN}"
 
-dune exec ./text_email.exe $FROM $TO
+# Using "dune exec" doesn't work well here due to the need to support the
+# --html CLI flag.
+dune build
+cp ../../_build/default/mailgun/example/send.exe send
+./send $FROM $TO $@

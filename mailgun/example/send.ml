@@ -1,47 +1,61 @@
 module Email = Tidy_email.Email
 module Mailgun = Tidy_email_mailgun.Mailgun
 
-let html_body =
+
+let html_body = Email.Html
   {|
   <html>
   <body>
-    <h3>Hello from Tidy-Email!<h3>
-    <p>This is what an HTML body looks like.</p>
+    <h3><b>Hello from Tidy-Email!</b><h3>
+    <p>This is what an HTML email body looks like.</p>
   </body>
   </html>
 |}
 
-let send sender recipient =
+
+let send use_html sender recipient =
   let config : Mailgun.config =
     {
       api_key = Sys.getenv "MAILGUN_API_KEY";
       base_url = Sys.getenv "MAILGUN_BASE_URL";
     } in
-  let email =
-    Email.make ~sender ~recipient
-      ~subject:"A test html/text email from tidy-email."
-      ~body:(Email.Html html_body) in
+  let subject = "Test message from tidy-email." in
+  let body =
+    if use_html then html_body else
+      Email.Text "This is what a plain text email body looks like."
+  in
+  let email = Email.make ~sender ~recipient ~subject ~body in
   Printf.printf "Starting email send.\n";
   let%lwt result = Mailgun.send config email in
   let _ =
     match result with
     | Ok _ -> Printf.printf "Send succeeded.\n"
-    | Error _ -> Printf.printf "Send failed.\n" in
+    | Error e -> Printf.printf "Send failed. Details:\n%s" e in
   Lwt.return_unit
 
-let run sender recipient = Lwt_main.run @@ send sender recipient
+
+let run kind sender recipient = Lwt_main.run @@ send kind sender recipient
+
 
 let () =
   let open Cmdliner in
-  let doc = "The email address that should send the test message message." in
+
   let sender =
+    let doc = "The sender's email address." in
     Arg.(required & pos 0 (some string) None & info [] ~docv:"sender" ~doc)
   in
-  let doc = "The email address that should receive a test message." in
+
   let recipient =
+    let doc = "The receiver's email address." in
     Arg.(required & pos 1 (some string) None & info [] ~docv:"receiver" ~doc)
   in
-  let run_t = Term.(const run $ sender $ recipient) in
+
+  let kind =
+    let doc = "Send an HTML message instead of plain text." in
+    Arg.(value & flag & info ["h"; "html"] ~docv:"html" ~doc)
+  in
+
+  let run_t = Term.(const run $ kind $ sender $ recipient) in
   let doc = "Send a message from recipient to sender." in
   let info = Term.info "text_email" ~doc in
   Printf.printf "Starting.\n";
