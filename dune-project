@@ -1,5 +1,5 @@
 (lang dune 2.8)
-(name tidy-email)
+(name tidy_email)
 
 (generate_opam_files true)
 
@@ -10,7 +10,7 @@
 
 (package
  (name tidy_email)
- (synopsis "An OCaml library that simplifies connecting to email services.")
+ (synopsis "An OCaml library that simplifies connecting to email services")
  (description "\
 Tidy-email provides a consistent interface for sending email.
 It defines types for sending messages via serveral different
@@ -27,7 +27,7 @@ sending them.
 
 (package
  (name tidy_email_mailgun)
- (synopsis "An OCaml library that simplifies connecting to Mailgun's REST API.")
+ (synopsis "An OCaml library that simplifies connecting to Mailgun's REST API")
  (description "")
  (version 0.0.0)
  (depends
@@ -36,11 +36,11 @@ sending them.
   (ocaml (>= 4.11.0))
   (cohttp (>= 2.5.5))
   (cohttp-lwt-unix (>= 2.5.5))
-  (tidy-email (>= 0.0.0))))
+  (tidy_email (= :version))))
 
 (package
  (name tidy_email_sendgrid)
- (synopsis "An OCaml library that simplifies connecting to Sendgrid's REST API.")
+ (synopsis "An OCaml library that simplifies connecting to Sendgrid's REST API")
  (description "")
  (version 0.0.0)
  (depends
@@ -49,11 +49,11 @@ sending them.
   (ocaml (>= 4.11.0))
   (cohttp (>= 2.5.5))
   (cohttp-lwt-unix (>= 2.5.5))
-  (tidy-email (>= 0.0.0))))
+  (tidy_email (= :version))))
 
 (package
  (name tidy_email_smtp)
- (synopsis "An OCaml library that simplifies connecting to SMTP servers.")
+ (synopsis "An OCaml library that simplifies connecting to SMTP servers")
  (description "")
  (version 0.0.0)
  (depends
@@ -61,4 +61,4 @@ sending them.
   (dune (>= 2.0))
   (ocaml (>= 4.11.0))
   (letters (>= 0.2.1))
-  (tidy-email (>= 0.0.0))))
+  (tidy_email (= :version))))

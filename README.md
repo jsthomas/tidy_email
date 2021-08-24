@@ -149,6 +149,26 @@ background worker. This [blog
 post](https://jsthomas.github.io/ocaml-email.html) provides
 suggestions about how to do this.
 
+## Contact
+
+The best place to record feature requests and bugs is in the
+[issues](https://github.com/jsthomas/tidy-email/issues) section of
+this repo.
+
+I am also available on Discord and Discuss:
+
+- #dream on the [Reason Discord](https://discord.gg/YCTDuzbg).
+- #webdev on the [OCaml Discord](https://discord.gg/DyhPFYGr)
+- The [OCaml Discuss forum](https://discuss.ocaml.org/).
+
+Tagging comments with `@jsthomas` is a good way to get my attention.
+
+## Contributing
+
+Pull requests and other contributions (examples, bug reports, better
+documentation) are welcome. I am working on adding docs to make the
+contribution process easier.
+
 ## Acknowledgements
 
 The implementation of `tidy_email_sendgrid` is based on work in
