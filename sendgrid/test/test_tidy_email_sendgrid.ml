@@ -3,14 +3,17 @@
    was gathered by making requests via Insomnia. *)
 
 open Lwt.Infix
+
+module Body = Cohttp_lwt.Body
+
 module Email = Tidy_email.Email
 module Sg = Tidy_email_sendgrid.Sendgrid
+
 
 let api_key = "test_password"
 let base_url = "https://api.sendgrid.com/v3/mail/send"
 
 let config : Sg.config = { api_key; base_url }
-
 
 let text_body = Email.Text "Some text here."
 let html_body = Email.Html "Some html here."
@@ -96,19 +99,18 @@ let check_headers =
 let post
     (content: Email.body)
     status
-    (response_body: Cohttp_lwt.Body.t)
-    ?(body: Cohttp_lwt.Body.t option)
+    (response_body: Body.t)
+    ?(body: Body.t option)
     ?headers
     uri =
-  let open Cohttp in
-  let response = Response.make ~status () in
+  let response = Cohttp.Response.make ~status () in
   let expected_headers = Some (Cohttp.Header.of_list [
-      ("authorization", "Bearer test_password");
+      ("authorization", "Bearer " ^ api_key);
       ("content-type", "application/json");
     ]) in
   let%lwt actual_post_body = match body with
     | None -> Lwt.return "None"
-    | Some b -> Cohttp_lwt.Body.to_string b
+    | Some b -> Body.to_string b
   in
   Alcotest.(check string) "The correct API endpoint is used." base_url (Uri.to_string uri);
   check_headers "A basic auth header is supplied." expected_headers headers;
@@ -131,7 +133,7 @@ let bad_credentials_response = {|
 let test_bad_credentials _ () =
   (* When Sendgrid replies with a 401 Unauthorized due to bad
      credentials, the send fails with an error. *)
-  let client = post text_body `Unauthorized (Cohttp_lwt.Body.of_string bad_credentials_response) in
+  let client = post text_body `Unauthorized (Body.of_string bad_credentials_response) in
   let sender = Sg.client_send client in
   email text_body
   |> sender config
@@ -157,7 +159,7 @@ let test_bad_data _ () =
      The JSON tidy_email is submitting in this test is actually valid,
      but if Sendgrid changed their schema this is the error we would
      expect to see. *)
-  let client = post text_body `Bad_request (Cohttp_lwt.Body.of_string bad_data_response) in
+  let client = post text_body `Bad_request (Body.of_string bad_data_response) in
   let sender = Sg.client_send client in
   email text_body
   |> sender config
@@ -167,7 +169,7 @@ let test_bad_data _ () =
 let test_success body =
   let test _ () =
     (* The backend produces an ok when Sendgrid replies with a 202 Accepted.*)
-    let client = post body `Accepted (Cohttp_lwt.Body.empty) in
+    let client = post body `Accepted (Body.empty) in
     let sender = Sg.client_send client in
     email body |> sender config >|= check_result "An ok is produced." (Ok ())
   in
