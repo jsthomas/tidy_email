@@ -2,7 +2,6 @@ type body =
   | Text  of string
   | Html  of string
   | Mixed of string * string * string option
-(* Text, HTML, and Boundary *)
 
 type t = {
   sender : string;

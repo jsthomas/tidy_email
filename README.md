@@ -127,8 +127,13 @@ and then a single message should appear in the destination inbox.
 
 There are two levels of testing in this project:
 
-1. Unit tests, as configured with `alcotest`.
+1. Unit tests defined using `alcotest`.
 2. End-to-end tests that are run manually by maintainers.
+
+To run the unit tests, navigate to the root of the repository and run
+`dune test`. Running `./coverage.sh` will generate a summary of test
+coverage via `bisect_ppx`. The coverage report will appear under
+`_coverage/index.html`.
 
 The specifications for the end to end tests are captured in the
 `/examples` folder of each library. It's unfortunate that these tests
@@ -143,3 +148,28 @@ Mailgun or Sendgrid may take ~500 ms or more. You may wish to use
 background worker. This [blog
 post](https://jsthomas.github.io/ocaml-email.html) provides
 suggestions about how to do this.
+
+## Contact
+
+The best place to record feature requests and bugs is in the
+[issues](https://github.com/jsthomas/tidy-email/issues) section of
+this repo.
+
+I am also available on Discord and Discuss:
+
+- #dream on the [Reason Discord](https://discord.gg/YCTDuzbg).
+- #webdev on the [OCaml Discord](https://discord.gg/DyhPFYGr)
+- The [OCaml Discuss forum](https://discuss.ocaml.org/).
+
+Tagging comments with `@jsthomas` is a good way to get my attention.
+
+## Contributing
+
+Pull requests and other contributions (examples, bug reports, better
+documentation) are welcome. I am working on adding docs to make the
+contribution process easier.
+
+## Acknowledgements
+
+The implementation of `tidy_email_sendgrid` is based on work in
+[Sihl](https://github.com/oxidizing/sihl).

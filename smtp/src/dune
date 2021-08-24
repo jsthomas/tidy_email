@@ -3,4 +3,5 @@
  (public_name tidy_email_smtp)
  (libraries lwt letters tidy_email)
  (preprocess (pps lwt_ppx))
+ (instrumentation (backend bisect_ppx))
 )

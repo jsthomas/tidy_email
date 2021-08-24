@@ -1,0 +1,7 @@
+(tests
+ (names test_tidy_email_sendgrid)
+ (package tidy_email_sendgrid)
+ (libraries alcotest-lwt tidy_email_sendgrid)
+ (preprocess (pps lwt_ppx))
+ (instrumentation (backend bisect_ppx))
+)

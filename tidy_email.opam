@@ -4,7 +4,7 @@ version: "0.0.0"
 synopsis: "An OCaml library that simplifies connecting to email services"
 description: """
 Tidy-email provides a consistent interface for sending email.
-It provides types for sending messages via serveral different
+It defines types for sending messages via serveral different
 backend services (SMTP, Mailgun, etc.). Also included is a simple
 backend suitable for testing that captures messages without
 sending them.
@@ -15,6 +15,7 @@ license: "MIT"
 homepage: "https://github.com/jsthomas/tidy-email"
 bug-reports: "https://github.com/jsthomas/tidy-email/issues"
 depends: [
+  "bisect_ppx" {dev & >= "2.5.0"}
   "dune" {>= "2.8" & >= "2.0"}
   "ocaml" {>= "4.11.0"}
   "lwt" {>= "5.4.2"}
