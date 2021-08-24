@@ -127,11 +127,13 @@ and then a single message should appear in the destination inbox.
 
 There are two levels of testing in this project:
 
-1. Unit tests, as configured with `alcotest`.
+1. Unit tests defined using `alcotest`.
 2. End-to-end tests that are run manually by maintainers.
 
 To run the unit tests, navigate to the root of the repository and run
-`dune test`.
+`dune test`. Running `./coverage.sh` will generate a summary of test
+coverage via `bisect_ppx`. The coverage report will appear under
+`_coverage/index.html`.
 
 The specifications for the end to end tests are captured in the
 `/examples` folder of each library. It's unfortunate that these tests
