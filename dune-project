@@ -36,6 +36,7 @@ sending them.
   (ocaml (>= 4.11.0))
   (cohttp (>= 2.5.5))
   (cohttp-lwt-unix (>= 2.5.5))
+  (lwt_ppx (>= 2.0.0))
   (tidy_email (= :version))))
 
 (package
@@ -49,6 +50,7 @@ sending them.
   (ocaml (>= 4.11.0))
   (cohttp (>= 2.5.5))
   (cohttp-lwt-unix (>= 2.5.5))
+  (lwt_ppx (>= 2.0.0))
   (tidy_email (= :version))))
 
 (package
@@ -61,4 +63,5 @@ sending them.
   (dune (>= 2.0))
   (ocaml (>= 4.11.0))
   (letters (>= 0.2.1))
+  (lwt_ppx (>= 2.0.0))
   (tidy_email (= :version))))

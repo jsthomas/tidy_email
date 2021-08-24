@@ -14,7 +14,8 @@ depends: [
   "ocaml" {>= "4.11.0"}
   "cohttp" {>= "2.5.5"}
   "cohttp-lwt-unix" {>= "2.5.5"}
-  "tidy_email" {>= "0.0.0"}
+  "lwt_ppx" {>= "2.0.0"}
+  "tidy_email" {= version}
   "odoc" {with-doc}
 ]
 build: [
