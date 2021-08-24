@@ -1,7 +1,7 @@
 (tests
  (names test_tidy_email_mailgun)
  (package tidy_email_mailgun)
- (libraries alcotest-lwt tidy_email_mailgun sexplib)
- (preprocess (pps lwt_ppx ppx_sexp_conv))
+ (libraries alcotest-lwt tidy_email_mailgun)
+ (preprocess (pps lwt_ppx))
  (instrumentation (backend bisect_ppx))
 )
