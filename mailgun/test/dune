@@ -1,5 +1,5 @@
 (tests
- (names test_tidy_email_mailgun)
+ (names test_send)
  (package tidy_email_mailgun)
  (libraries alcotest-lwt tidy_email_mailgun)
  (preprocess (pps lwt_ppx))
