@@ -1,5 +1,5 @@
 (tests
- (names test_tidy_email_sendgrid)
+ (names test_send)
  (package tidy_email_sendgrid)
  (libraries alcotest-lwt tidy_email_sendgrid)
  (preprocess (pps lwt_ppx))

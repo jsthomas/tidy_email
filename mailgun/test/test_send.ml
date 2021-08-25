@@ -5,7 +5,7 @@
 
 open Lwt.Infix
 module Email = Tidy_email.Email
-module Mg = Tidy_email_mailgun.Mailgun
+module Mg = Tidy_email_mailgun
 
 let api_key = "test_password"
 

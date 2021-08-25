@@ -27,3 +27,13 @@ setup.log
 
 # Local OPAM switch
 _opam/
+
+# Coverage reports
+_coverage/
+
+mailgun/example/send
+mailgun/example/send.sh
+sendgrid/example/send
+sendgrid/example/send.sh
+smtp/example/send
+smtp/example/send.sh

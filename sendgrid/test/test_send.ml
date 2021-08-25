@@ -7,7 +7,7 @@ open Lwt.Infix
 module Body = Cohttp_lwt.Body
 
 module Email = Tidy_email.Email
-module Sg = Tidy_email_sendgrid.Sendgrid
+module Sg = Tidy_email_sendgrid
 
 
 let api_key = "test_password"
