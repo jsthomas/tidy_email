@@ -8,8 +8,7 @@ type t = {
   recipients : string list;
   subject : string;
   body : body;
-  cc : string list;
-  bcc : string list;
 }
 
 val make : sender:string -> recipient:string -> subject:string -> body:body -> t
+(** Generate a new email record to be sent to a single recipient. *)

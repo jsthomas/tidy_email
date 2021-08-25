@@ -1,7 +1,6 @@
 module Email = Tidy_email.Email
 module Smtp = Tidy_email_smtp
 
-
 let html_body =
   Email.Html
     {|
@@ -34,13 +33,10 @@ let send use_html sender recipient =
     | Error e -> Printf.printf "Send failed. Details: %s" e in
   Lwt.return_unit
 
-
 let run kind sender recipient = Lwt_main.run @@ send kind sender recipient
-
 
 let () =
   let open Cmdliner in
-
   let sender =
     let doc = "The sender's email address." in
     Arg.(required & pos 0 (some string) None & info [] ~docv:"sender" ~doc)
@@ -53,8 +49,7 @@ let () =
 
   let kind =
     let doc = "Send an HTML message instead of plain text." in
-    Arg.(value & flag & info ["h"; "html"] ~docv:"html" ~doc)
-  in
+    Arg.(value & flag & info ["h"; "html"] ~docv:"html" ~doc) in
 
   let run_t = Term.(const run $ kind $ sender $ recipient) in
   let doc = "Send a message from recipient to sender." in

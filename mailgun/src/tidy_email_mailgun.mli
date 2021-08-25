@@ -1,6 +1,6 @@
 type config = {
-  api_key : string; (** e.g. https://api.mailgun.net/v3/<your domain>*)
-  base_url : string; (** An alphanumeric string found on the Mailgun console. *)
+  api_key : string;  (** e.g. https://api.mailgun.net/v3/<your domain>*)
+  base_url : string;  (** An alphanumeric string found on the Mailgun console. *)
 }
 
 type http_post_form =
