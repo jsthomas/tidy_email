@@ -11,6 +11,7 @@ bug-reports: "https://github.com/jsthomas/tidy-email/issues"
 depends: [
   "bisect_ppx" {dev & >= "2.5.0"}
   "alcotest-lwt" {dev & >= "1.4.0"}
+  "cmdliner" {dev & >= "1.0.4"}
   "dune" {>= "2.8" & >= "2.0"}
   "ocaml" {>= "4.11.0"}
   "cohttp" {>= "2.5.5"}
