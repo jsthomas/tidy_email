@@ -1,10 +1,19 @@
 #!/bin/bash
 
+set -e
+
 export SMTP_USERNAME=""
 export SMTP_PASSWORD=""
-export SMTP_HOSTNAME=""
+export SMTP_HOSTNAME=""  # e.g. smtp.mailgun.org
 
 export FROM="" # e.g. sender@domain1.com
 export TO="" # e.g. receiver@dmain2.com
 
-dune exec ./html_email.exe $FROM $TO
+
+# Using "dune exec" doesn't work well here due to the need to support the
+# --html CLI flag.
+
+dune build
+cp ../../_build/default/mailgun/example/send.exe send
+chmod 700 send
+./send $FROM $TO $@

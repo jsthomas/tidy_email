@@ -1,5 +1,5 @@
 (executables
- (names html_email)
+ (names send)
  (libraries lwt cohttp cohttp-lwt-unix tidy_email tidy_email_smtp cmdliner letters)
  (preprocess (pps lwt_ppx))
 )

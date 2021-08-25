@@ -1,8 +1,15 @@
 #!/bin/bash
 
+set -e
+
 export SENDGRID_BASE_URL="https://api.sendgrid.com/v3/mail/send"
 export SENDGRID_API_KEY=""
 export FROM=""  # e.g. sender@domain1.com
 export TO=""    # e.g. receiver@domain2.com
 
-dune exec ./text_email.exe $FROM $TO
+# Using "dune exec" doesn't work well here due to the need to support the
+# --html CLI flag.
+dune build
+cp ../../_build/default/sendgrid/example/send.exe send
+chmod 700 send
+./send $FROM $TO $@
