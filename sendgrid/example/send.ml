@@ -1,5 +1,5 @@
 module Email = Tidy_email.Email
-module Sendgrid = Tidy_email_sendgrid.Sendgrid
+module Sendgrid = Tidy_email_sendgrid
 
 let html_body = Email.Html
   {|

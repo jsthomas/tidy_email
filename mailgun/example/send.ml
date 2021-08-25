@@ -1,5 +1,5 @@
 module Email = Tidy_email.Email
-module Mailgun = Tidy_email_mailgun.Mailgun
+module Mailgun = Tidy_email_mailgun
 
 
 let html_body = Email.Html

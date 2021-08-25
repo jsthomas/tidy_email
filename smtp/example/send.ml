@@ -1,5 +1,5 @@
 module Email = Tidy_email.Email
-module Backend = Tidy_email_smtp.Smtp
+module Smtp = Tidy_email_smtp
 
 
 let html_body =
@@ -27,7 +27,7 @@ let send use_html sender recipient =
     Email.make ~sender ~recipient
       ~subject:"Test message from tidy-email via SMTP" ~body in
   Printf.printf "Starting email send.\n";
-  let%lwt result = Backend.send config email in
+  let%lwt result = Smtp.send config email in
   let _ =
     match result with
     | Ok _ -> Printf.printf "Send succeeded.\n"
