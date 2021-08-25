@@ -48,12 +48,12 @@ you to create some combination of DNS records (typically TXT, CNAME,
 and MX) in order for email to work. Both Sendgrid and Mailgun provide
 straightforward instructions about which records to create.
 
-If you're planning on sending marketing email, other automated email,
-you may want to consider setting up a separate subdomain. For example,
-if you run `foo.com`, you might us `mail.foo.com` for automated
-email. Since the reputations for `foo.com` and `mail.foo.com` are
-distinct, a separate subdomain ensures that a mistake in your
-application won't impact the delivery of emails from `foo.com`
+If you're planning on sending marketing email or other automated
+email, you may want to consider setting up a separate subdomain to
+protect the reputation of your main domain. For example, if you own
+`foo.com` you might use `mail.foo.com` for automated email. Since the
+reputations for `foo.com` and `mail.foo.com` are distinct, a mistake
+in your application won't impact the delivery of emails from `foo.com`
 addresses. You can read more about this
 [here](https://www.mailgun.com/blog/the-basics-of-email-subdomains/).
 
@@ -71,7 +71,7 @@ You will need two pieces of information from the Mailgun console:
 
 2. A "base url". In the US, this looks like
    `https://api.mailgun.net/v3/<Your Domain>`. In the EU, it may look
-   slightly different, check the documentation.
+   slightly different; check the documentation.
 
 Note: If you're working with a sandbox domain, you will also need to
 configure which addresses the domain is allowed to send to. Expect
@@ -82,9 +82,8 @@ DNS records can't get set correctly because the domain is temporary).
 
 Sendgrid requires a company email and website when setting up an
 account. Using a generic email account (e.g. Protonmail, Gmail, etc.)
-for this purpose is likely to result in your account application
-getting frozen for several days while you negotiate with their
-Customer Service audit team.
+for this purpose is likely to result in your account getting frozen
+for several days while you negotiate with their security/audit team.
 
 If you already have a domain and company email, registering with a
 Sendgrid account is fast. Sendgrid's REST API is somewhat more
