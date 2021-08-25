@@ -3,34 +3,36 @@
 This library wraps several different email services and simplifies the
 process of sending mail.
 
-The package `tidy_email` contains the definition for an email type and
-an email backend that can be used in tests (it accumulates emails in a
-list). An _email backend_ is simply a function that consumes a
-configuration object and produces a function for sending email. In
-`tidy_email` these email-sending functions have a consistent
-signature. Related packages (e.g. `tidy_email_mailgun`) contain
-provider specific logic and depend on `tidy_email`.
+The library defines three important entities:
+- an email type
+- a service-specific configuration record
+- a send function
+
+A send function consumes an email and produces an `Lwt_result`
+capturing whether the message was successfully sent.
+
+Currently, `tidy_email` supports three different email services:
+
+- [Mailgun REST API](https://documentation.mailgun.com/en/latest/api_reference.html)
+- [Sendgrid REST API](https://docs.sendgrid.com/for-developers/sending-email/api-getting-started)
+- SMTP, via [`letters`](https://github.com/oxidizing/letters/).
+
+Each service is factored out into its own library; for example, to
+integrate with Mailgun, use `tidy_email_mailgun`.
 
 Using `tidy_email` makes it easier to hide some details of your email
 provider from the rest of your application. This library can simplify
 changing email services, should you need to do so.
 
-Currently, `tidy_email` supports three different email integrations:
-
-- [Mailgun REST API](https://documentation.mailgun.com/en/latest/api_reference.html)
-- [Sendgrid REST API](https://docs.sendgrid.com/for-developers/sending-email/api-getting-started)
-- SMTP, via `letters`.
-
-(Both Mailgun and Sendgrid also support integrating with SMTP but
-recommend using their respective REST API.)
 
 ## About Sendgrid and Mailgun
 
-Both Sendgrid and Mailgun have extensive REST APIs. These services can
-receive email as well as sending it. Currently, this library only
-covers **sending** email. Advanced features like managing email
-templates are not covered here. They could be added in the future;
-pull requests and suggestions are welcome.
+Both Sendgrid and Mailgun have extensive REST APIs (in fact, they also
+support SMTP but recommend their APIs). These services can receive
+email as well as sending it. Currently, this library only covers
+**sending** email. Advanced features like managing email templates are
+not covered here. They could be added in the future; pull requests and
+suggestions are welcome.
 
 ## Setting up a mail service
 
