@@ -69,6 +69,6 @@ sending them.
   (cmdliner (and :dev (>= "1.0.4")))
   (dune (>= 2.0))
   (ocaml (>= 4.11.0))
-  (letters (>= 0.2.1))
+  (letters (>= 0.3.0))
   (lwt_ppx (>= 2.0.0))
   (tidy_email (= :version))))
