@@ -18,7 +18,7 @@ backend services (SMTP, Mailgun, etc.). Also included is a simple
 backend suitable for testing that captures messages without
 sending them.
 ")
- (version 0.0.0)
+ (version 0.0.1)
  (depends
   (bisect_ppx (and :dev (>= "2.5.0")))
   (dune (>= 2.0))
@@ -29,7 +29,7 @@ sending them.
  (name tidy_email_mailgun)
  (synopsis "An OCaml library that simplifies connecting to Mailgun's REST API")
  (description "")
- (version 0.0.0)
+ (version 0.0.1)
  (depends
   (bisect_ppx (and :dev (>= "2.5.0")))
   (alcotest-lwt (and :dev (>= "1.4.0")))
@@ -45,7 +45,7 @@ sending them.
  (name tidy_email_sendgrid)
  (synopsis "An OCaml library that simplifies connecting to Sendgrid's REST API")
  (description "")
- (version 0.0.0)
+ (version 0.0.1)
  (depends
   (bisect_ppx (and :dev (>= "2.5.0")))
   (alcotest-lwt (and :dev (>= "1.4.0")))
@@ -62,7 +62,7 @@ sending them.
  (name tidy_email_smtp)
  (synopsis "An OCaml library that simplifies connecting to SMTP servers")
  (description "")
- (version 0.0.0)
+ (version 0.0.1)
  (depends
   (bisect_ppx (and :dev (>= "2.5.0")))
   (alcotest-lwt (and :dev (>= "1.4.0")))
