@@ -1,4 +1,4 @@
-(** Clients of tidy-email may want a mock email backend suitable for
+(** Clients of tidy_email may want a mock email backend suitable for
    unit tests.  The backend described in this module accumulates
    messages in a list for later analysis.  *)
 

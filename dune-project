@@ -3,7 +3,7 @@
 
 (generate_opam_files true)
 
-(source (github jsthomas/tidy-email))
+(source (github jsthomas/tidy_email))
 (license MIT)
 (authors "Joe Thomas")
 (maintainers "jsthomas@protonmail.com")
@@ -12,7 +12,7 @@
  (name tidy_email)
  (synopsis "An OCaml library that simplifies connecting to email services")
  (description "\
-Tidy-email provides a consistent interface for sending email.
+tidy_email provides a consistent interface for sending email.
 It defines types for sending messages via serveral different
 backend services (SMTP, Mailgun, etc.). Also included is a simple
 backend suitable for testing that captures messages without

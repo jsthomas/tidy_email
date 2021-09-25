@@ -21,7 +21,7 @@ let send use_html sender recipient =
       api_key = Sys.getenv "SENDGRID_API_KEY";
       base_url = Sys.getenv "SENDGRID_BASE_URL";
     } in
-  let subject = "A test text email from tidy-email via Sendgrid." in
+  let subject = "A test text email from tidy_email via Sendgrid." in
   let body = if use_html then html_body else text_body in
   let email = Email.make ~sender ~recipient ~subject ~body in
   Printf.printf "Starting email send.\n";

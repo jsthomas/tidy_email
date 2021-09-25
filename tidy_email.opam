@@ -3,7 +3,7 @@ opam-version: "2.0"
 version: "0.0.1"
 synopsis: "An OCaml library that simplifies connecting to email services"
 description: """
-Tidy-email provides a consistent interface for sending email.
+tidy_email provides a consistent interface for sending email.
 It defines types for sending messages via serveral different
 backend services (SMTP, Mailgun, etc.). Also included is a simple
 backend suitable for testing that captures messages without
@@ -12,8 +12,8 @@ sending them.
 maintainer: ["jsthomas@protonmail.com"]
 authors: ["Joe Thomas"]
 license: "MIT"
-homepage: "https://github.com/jsthomas/tidy-email"
-bug-reports: "https://github.com/jsthomas/tidy-email/issues"
+homepage: "https://github.com/jsthomas/tidy_email"
+bug-reports: "https://github.com/jsthomas/tidy_email/issues"
 depends: [
   "bisect_ppx" {dev & >= "2.5.0"}
   "dune" {>= "2.8" & >= "2.0"}
@@ -35,4 +35,4 @@ build: [
     "@doc" {with-doc}
   ]
 ]
-dev-repo: "git+https://github.com/jsthomas/tidy-email.git"
+dev-repo: "git+https://github.com/jsthomas/tidy_email.git"

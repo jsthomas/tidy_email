@@ -6,8 +6,8 @@ description: ""
 maintainer: ["jsthomas@protonmail.com"]
 authors: ["Joe Thomas"]
 license: "MIT"
-homepage: "https://github.com/jsthomas/tidy-email"
-bug-reports: "https://github.com/jsthomas/tidy-email/issues"
+homepage: "https://github.com/jsthomas/tidy_email"
+bug-reports: "https://github.com/jsthomas/tidy_email/issues"
 depends: [
   "bisect_ppx" {dev & >= "2.5.0"}
   "alcotest-lwt" {dev & >= "1.4.0"}
@@ -33,4 +33,4 @@ build: [
     "@doc" {with-doc}
   ]
 ]
-dev-repo: "git+https://github.com/jsthomas/tidy-email.git"
+dev-repo: "git+https://github.com/jsthomas/tidy_email.git"
