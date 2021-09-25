@@ -27,6 +27,14 @@ changing email services, should you need to do so.
 
 ## About Sendgrid and Mailgun
 
+First things first! Here are links to use for setting up a new mail
+plan:
+
+- To sign up for Mailgun, click [here](https://signup.mailgun.com/new/signup).
+- To sign up for Sendgrid, click [here](https://sendgrid.com/pricing/).
+
+A more extensive comparison of these services is in the sections below.
+
 Both Sendgrid and Mailgun have extensive REST APIs (in fact, they also
 support SMTP but recommend their APIs). These services can receive
 email as well as sending it. Currently, this library only covers
@@ -34,14 +42,14 @@ email as well as sending it. Currently, this library only covers
 not covered here. They could be added in the future; pull requests and
 suggestions are welcome.
 
-## Setting up a mail service
+## Configuring mail service
 
-This section contains tips for setting up email access.
+This section contains tips for configuring your mail plan.
 
 Mailgun is the only service I've encountered that provides a "sandbox
-domain". If you don't plan to use Mailgun, you will first need to
-register a domain (Route53 is a reasonable choice, most domains cost
-~12 USD per year).
+domain". If you don't plan to use a sandbox domain, you will first
+need to register a domain (Route53 is a reasonable choice, most
+domains cost ~12 USD per year).
 
 If you don't have a "sandbox domain", most email providers will need
 you to create some combination of DNS records (typically TXT, CNAME,
@@ -49,11 +57,11 @@ and MX) in order for email to work. Both Sendgrid and Mailgun provide
 straightforward instructions about which records to create.
 
 If you're planning on sending marketing email or other automated
-email, you may want to consider setting up a separate subdomain to
-protect the reputation of your main domain. For example, if you own
-`foo.com` you might use `mail.foo.com` for automated email. Since the
-reputations for `foo.com` and `mail.foo.com` are distinct, a mistake
-in your application won't impact the delivery of emails from `foo.com`
+email, consider setting up a separate subdomain to protect the
+reputation of your main domain. For example, if you own `foo.com` you
+might use `mail.foo.com` for automated email. Since the reputations
+for `foo.com` and `mail.foo.com` are distinct, a mistake in your
+application won't impact the delivery of emails from `foo.com`
 addresses. You can read more about this
 [here](https://www.mailgun.com/blog/the-basics-of-email-subdomains/).
 
