@@ -47,13 +47,14 @@ suggestions are welcome.
 This section contains tips for configuring your mail plan.
 
 Mailgun is the only service I've encountered that provides a "sandbox
-domain". If you don't plan to use a sandbox domain, you will first
-need to register a domain (Route53 is a reasonable choice, most
-domains cost ~12 USD per year).
+domain". A sandbox domain allows you to send email to a limited number
+of configured email addresses, without having to register a domain.
 
-If you don't have a "sandbox domain", most email providers will need
-you to create some combination of DNS records (typically TXT, CNAME,
-and MX) in order for email to work. Both Sendgrid and Mailgun provide
+If you don't plan to use a sandbox domain, you will first need to
+register a domain (Route53 is a reasonable choice, most domains cost
+~12 USD per year). In this case, most email providers will need you to
+create some combination of DNS records (typically TXT, CNAME, and MX)
+in order for email to work. Both Sendgrid and Mailgun provide
 straightforward instructions about which records to create.
 
 If you're planning on sending marketing email or other automated
@@ -69,8 +70,9 @@ addresses. You can read more about this
 
 This service is easy to set up and doesn't require a credit card until
 you begin using custom domains. The "sandbox domain" feature is quite
-helpful for running tests. This is the provider I recommend if you
-don't have your own domain or SMTP server already.
+helpful for running tests, though it's common for sandbox domain
+emails to go directly to your spam folder. This is the provider I
+recommend if you don't have your own domain or SMTP server already.
 
 You will need two pieces of information from the Mailgun console:
 
