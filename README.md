@@ -33,7 +33,8 @@ plan:
 - To sign up for Mailgun, click [here](https://signup.mailgun.com/new/signup).
 - To sign up for Sendgrid, click [here](https://sendgrid.com/pricing/).
 
-A more extensive comparison of these services is in the sections below.
+The sections below contain a more extensive comparison of these two
+services.
 
 Both Sendgrid and Mailgun have extensive REST APIs (in fact, they also
 support SMTP but recommend their APIs). These services can receive
