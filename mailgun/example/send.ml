@@ -20,7 +20,7 @@ let send use_html sender recipient =
       api_key = Sys.getenv "MAILGUN_API_KEY";
       base_url = Sys.getenv "MAILGUN_BASE_URL";
     } in
-  let subject = "Test message from tidy-email via Mailgun." in
+  let subject = "Test message from tidy_email via Mailgun." in
   let body = if use_html then html_body else text_body in
   let email = Email.make ~sender ~recipient ~subject ~body in
   Printf.printf "Starting email send.\n";

@@ -24,7 +24,7 @@ let send use_html sender recipient =
   let body = if use_html then html_body else text_body in
   let email =
     Email.make ~sender ~recipient
-      ~subject:"Test message from tidy-email via SMTP" ~body in
+      ~subject:"Test message from tidy_email via SMTP" ~body in
   Printf.printf "Starting email send.\n";
   let%lwt result = Smtp.send config email in
   let _ =

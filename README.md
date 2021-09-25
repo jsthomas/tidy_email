@@ -101,7 +101,7 @@ Sendgrid account is fast. Sendgrid's REST API is somewhat more
 complicated than the one provided by Mailgun. Both services have a
 free tier and aren't terribly expensive for small volumes of mail.
 
-To use Sendgrid with `tidy-email`, you will need:
+To use Sendgrid with `tidy_email`, you will need:
 
 1. An API key. You'll need to create this in the console and set the
    permissions accordingly.
@@ -117,7 +117,7 @@ you will need to obtain the hostname, username, and password for the
 server. Many email services support SMTP in addition to a REST API
 (take, for example [Amazon
 SES](https://docs.aws.amazon.com/ses/latest/dg/smtp-credentials.html)),
-so this is a useful option if you want to use `tidy-email` with a
+so this is a useful option if you want to use `tidy_email` with a
 service that isn't supported by name yet.
 
 ## Examples
@@ -164,7 +164,7 @@ suggestions about how to do this.
 ## Contact
 
 The best place to record feature requests and bugs is in the
-[issues](https://github.com/jsthomas/tidy-email/issues) section of
+[issues](https://github.com/jsthomas/tidy_email/issues) section of
 this repo.
 
 I am also available on Discord and Discuss:
