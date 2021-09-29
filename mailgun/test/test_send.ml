@@ -47,18 +47,27 @@ let check_headers =
     Alcotest.testable formatter eq in
   Alcotest.check testable
 
+let contains s sub =
+  let m = String.length s in
+  let n = String.length sub in
+  let rec contains s sub i =
+    i <= m - n && (String.equal sub (String.sub s i n) || contains s sub (i + 1))
+  in
+  contains s sub 0
+
 (* This mock allows us to represent different status/body combinations
    that Mailgun's API might produce. Binding in a response status,
    response body, and expected post body produces an http_post_form
    function.*)
-let post_form (post_body : Tidy_email.Email.body) status body ?headers ~params
-    uri =
+let post (post_body : Tidy_email.Email.body) status resp_body
+    ?(body : Cohttp_lwt.Body.t option) ?headers uri =
   let open Cohttp in
   let response = Response.make ~status () in
-  let body = Cohttp_lwt.Body.of_string body in
+  let resp_body = Cohttp_lwt.Body.of_string resp_body in
   let expected_headers =
     Some
-      (Cohttp.Header.add_authorization (Cohttp.Header.init ())
+      (Header.add_authorization
+         (Header.init_with "content-type" "application/x-www-form-urlencoded")
          (`Basic ("api", api_key))) in
   let additional_params =
     match post_body with
@@ -66,19 +75,26 @@ let post_form (post_body : Tidy_email.Email.body) status body ?headers ~params
     | Html _ -> ["html"]
     | Mixed _ -> ["text"; "html"] in
   let expected_params = ["from"; "to"; "subject"] @ additional_params in
-  let actual_params = List.map fst params in
+  let%lwt actual_post_body =
+    match body with
+    | None -> Lwt.return "None"
+    | Some b -> Cohttp_lwt.Body.to_string b in
+  let all_params_present =
+    List.fold_left
+      (fun x p -> x && contains actual_post_body p)
+      true expected_params in
   Alcotest.(check string)
     "The correct API endpoint is used." "https://api.com/messages"
     (Uri.to_string uri);
   check_headers "A basic auth header is supplied." expected_headers headers;
-  Alcotest.(check (list string))
-    "The expected parameters are present." expected_params actual_params;
-  Lwt.return (response, body)
+  Alcotest.(check bool)
+    "The expected parameters are present." all_params_present true;
+  Lwt.return (response, resp_body)
 
 let test_bad_credentials _ () =
   (* When Mailgun replies with a 401 Unauthorized due to bad
      credentials, the send fails with an error. *)
-  let client = post_form text_body `Unauthorized "Forbidden" in
+  let client = post text_body `Unauthorized "Forbidden" in
   let sender = Mg.client_send client in
   email text_body
   |> sender config
@@ -94,7 +110,7 @@ let bad_data_response =
 let test_bad_data _ () =
   (* When Mailgun replies with a 400 Bad Request, the function call
      converts the response to an error. *)
-  let client = post_form text_body `Bad_request bad_data_response in
+  let client = post text_body `Bad_request bad_data_response in
   let sender = Mg.client_send client in
   email text_body
   |> sender config
@@ -111,7 +127,7 @@ let ok_response =
 let test_success body =
   let test _ () =
     (* The backend produces an ok when Mailgun replies with a 200 OK.*)
-    let client = post_form body `OK ok_response in
+    let client = post body `OK ok_response in
     let sender = Mg.client_send client in
     email body |> sender config >|= check_result "An ok is produced." (Ok ())
   in
