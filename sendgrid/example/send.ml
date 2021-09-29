@@ -1,8 +1,9 @@
 module Email = Tidy_email.Email
 module Sendgrid = Tidy_email_sendgrid
 
-let html_body = Email.Html
-  {|
+let html_body =
+  Email.Html
+    {|
   <html>
   <body>
     <h3><b>Hello from Tidy-Email!</b><h3>
@@ -11,9 +12,7 @@ let html_body = Email.Html
   </html>
 |}
 
-let text_body = Email.Text
-    "This is what a plain text email body looks like."
-
+let text_body = Email.Text "This is what a plain text email body looks like."
 
 let send use_html sender recipient =
   let config : Sendgrid.config =
@@ -32,13 +31,10 @@ let send use_html sender recipient =
     | Error _ -> Printf.printf "Send failed.\n" in
   Lwt.return_unit
 
-
 let run kind sender recipient = Lwt_main.run @@ send kind sender recipient
-
 
 let () =
   let open Cmdliner in
-
   let sender =
     let doc = "The sender's email address." in
     Arg.(required & pos 0 (some string) None & info [] ~docv:"sender" ~doc)
@@ -51,8 +47,7 @@ let () =
 
   let kind =
     let doc = "Send an HTML message instead of plain text." in
-    Arg.(value & flag & info ["h"; "html"] ~docv:"html" ~doc)
-  in
+    Arg.(value & flag & info ["h"; "html"] ~docv:"html" ~doc) in
 
   let run_t = Term.(const run $ kind $ sender $ recipient) in
   let doc = "Send a message from recipient to sender." in

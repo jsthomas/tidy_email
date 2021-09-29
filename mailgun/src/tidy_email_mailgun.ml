@@ -3,19 +3,13 @@ module Body = Cohttp_lwt.Body
 module Header = Cohttp.Header
 module Response = Cohttp.Response
 
-
 type config = {
   api_key : string;
   base_url : string;
 }
 
-
 type http_post =
-  ?body:Body.t ->
-  ?headers:Header.t ->
-  Uri.t ->
-  (Response.t * Body.t) Lwt.t
-
+  ?body:Body.t -> ?headers:Header.t -> Uri.t -> (Response.t * Body.t) Lwt.t
 
 let client_send (post : http_post) (conf : config) (e : Tidy_email.Email.t) =
   let param =
@@ -40,7 +34,6 @@ let client_send (post : http_post) (conf : config) (e : Tidy_email.Email.t) =
   match Response.status response with
   | `OK -> Lwt.return_ok ()
   | _ -> Lwt.return_error body_content
-
 
 let send =
   client_send
