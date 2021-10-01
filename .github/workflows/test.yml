@@ -24,8 +24,11 @@ jobs:
       with:
         ocaml-compiler: ${{matrix.ocaml}}
 
-    - run: opam install --yes --deps-only --with-test .
-    - run: opam exec -- dune runtest
+    - name: Test OPAM install.
+      run: opam install --yes --deps-only --with-test .
+
+    - name: Run unit tests.
+      run: opam exec -- dune runtest
 
     - name: Run Mailgun integration test.
       run: opam exec -- dune exec mailgun/example/send.exe $SENDER $RECEIVER
@@ -34,3 +37,20 @@ jobs:
         RECEIVER: ${{secrets.INTEGRATION_TEST_RECEIVE_ADDRESS}}
         MAILGUN_API_KEY: ${{secrets.MAILGUN_API_KEY}}
         MAILGUN_BASE_URL: "https://api.mailgun.net/v3/${{secrets.MAILGUN_DOMAIN}}"
+
+    - name: Run Sendgrid integration test.
+      run: opam exec -- dune exec sendgrid/example/send.exe $SENDER $RECEIVER
+      env:
+        SENDER: ${{secrets.SENDGRID_SEND_ADDRESS}}
+        RECEIVER: ${{secrets.INTEGRATION_TEST_RECEIVE_ADDRESS}}
+        SENDGRID_API_KEY: ${{secrets.SENDGRID_API_KEY}}
+        SENDGRID_BASE_URL: "https://api.sendgrid.com/v3/mail/send"
+
+    - name: Run SMTP integration test.
+      run: opam exec -- dune exec smtp/example/send.exe $SENDER $RECEIVER
+      env:
+        SENDER: ${{secrets.MAILGUN_SEND_ADDRESS}}
+        RECEIVER: ${{secrets.INTEGRATION_TEST_RECEIVE_ADDRESS}}
+        SMTP_USERNAME: ${{secrets.SMTP_USERNAME}}
+        SMTP_PASSWORD: ${{secrets.SMTP_PASSWORD}}
+        SMTP_HOSTNAME: "smtp.mailgun.org"
