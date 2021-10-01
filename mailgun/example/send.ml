@@ -25,11 +25,16 @@ let send use_html sender recipient =
   let email = Email.make ~sender ~recipient ~subject ~body in
   Printf.printf "Starting email send.\n";
   let%lwt result = Mailgun.send config email in
-  let _ =
+  let exit_code =
     match result with
-    | Ok _ -> Printf.printf "Send succeeded.\n"
-    | Error e -> Printf.printf "Send failed. Details:\n%s" e in
-  Lwt.return_unit
+    | Ok _ ->
+      Printf.printf "Send succeeded.\n";
+      0
+    | Error e ->
+      Printf.printf "Send failed. Details:\n%s" e;
+      1
+  in
+  Lwt.return exit_code
 
 let run kind sender recipient = Lwt_main.run @@ send kind sender recipient
 
@@ -53,4 +58,9 @@ let () =
   let doc = "Send a message from recipient to sender." in
   let info = Term.info "text_email" ~doc in
   Printf.printf "Starting.\n";
-  Term.exit @@ Term.eval (run_t, info)
+  let result = Term.eval (run_t, info) in
+  let result' = match result with
+    | `Ok 1 -> `Error `Exn
+    | _ -> result
+  in
+  Term.exit @@ result'
