@@ -26,3 +26,11 @@ jobs:
 
     - run: opam install --yes --deps-only --with-test .
     - run: opam exec -- dune runtest
+
+    - name: Run Mailgun integration test.
+      run: opam exec -- dune exec mailgun/example/send.exe ${{SENDER}} ${{RECEIVER}}
+      env:
+        SENDER: ${{secrets.MAILGUN_SEND_ADDRESS}}
+        RECEIVER: ${{secrets.INTEGRATION_TEST_RECEIVE_ADDRESS}}
+        MAILGUN_API_KEY: ${{secrets.MAILGUN_API_KEY}}
+        MAILGUN_BASE_URL: "https://api.mailgun.net/v3/${{secrets.MAILGUN_DOMAIN}}"
