@@ -28,7 +28,7 @@ jobs:
     - run: opam exec -- dune runtest
 
     - name: Run Mailgun integration test.
-      run: opam exec -- dune exec mailgun/example/send.exe ${{SENDER}} ${{RECEIVER}}
+      run: opam exec -- dune exec mailgun/example/send.exe $SENDER $RECEIVER
       env:
         SENDER: ${{secrets.MAILGUN_SEND_ADDRESS}}
         RECEIVER: ${{secrets.INTEGRATION_TEST_RECEIVE_ADDRESS}}
