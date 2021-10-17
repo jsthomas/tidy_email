@@ -15,7 +15,7 @@ let html_body =
 let text_body = Email.Text "This is what a plain text email body looks like."
 
 let send use_html sender recipient =
-  let config =
+  let send = Smtp.backend @@
     Letters.Config.make
       ~username:(Sys.getenv "SMTP_USERNAME")
       ~password:(Sys.getenv "SMTP_PASSWORD")
@@ -26,7 +26,7 @@ let send use_html sender recipient =
     Email.make ~sender ~recipient
       ~subject:"Test message from tidy_email via SMTP" ~body in
   Printf.printf "Starting email send.\n";
-  let%lwt result = Smtp.send config email in
+  let%lwt result = send email in
   let exit_code =
     match result with
     | Ok _ ->

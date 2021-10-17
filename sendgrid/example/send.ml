@@ -15,7 +15,7 @@ let html_body =
 let text_body = Email.Text "This is what a plain text email body looks like."
 
 let send use_html sender recipient =
-  let config : Sendgrid.config =
+  let send = Sendgrid.backend
     {
       api_key = Sys.getenv "SENDGRID_API_KEY";
       base_url = Sys.getenv "SENDGRID_BASE_URL";
@@ -24,7 +24,7 @@ let send use_html sender recipient =
   let body = if use_html then html_body else text_body in
   let email = Email.make ~sender ~recipient ~subject ~body in
   Printf.printf "Starting email send.\n";
-  let%lwt result = Sendgrid.send config email in
+  let%lwt result = send email in
   let exit_code =
     match result with
     | Ok _ ->
