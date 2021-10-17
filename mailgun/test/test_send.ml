@@ -95,9 +95,9 @@ let test_bad_credentials _ () =
   (* When Mailgun replies with a 401 Unauthorized due to bad
      credentials, the send fails with an error. *)
   let client = post text_body `Unauthorized "Forbidden" in
-  let sender = Mg.client_send client in
+  let send = Mg.backend ~client config in
   email text_body
-  |> sender config
+  |> send
   >|= check_result "An error is produced." (Error "Forbidden")
 
 let bad_data_response =
@@ -111,9 +111,9 @@ let test_bad_data _ () =
   (* When Mailgun replies with a 400 Bad Request, the function call
      converts the response to an error. *)
   let client = post text_body `Bad_request bad_data_response in
-  let sender = Mg.client_send client in
+  let send = Mg.backend ~client config in
   email text_body
-  |> sender config
+  |> send
   >|= check_result "An error is produced." (Error bad_data_response)
 
 let ok_response =
@@ -128,8 +128,8 @@ let test_success body =
   let test _ () =
     (* The backend produces an ok when Mailgun replies with a 200 OK.*)
     let client = post body `OK ok_response in
-    let sender = Mg.client_send client in
-    email body |> sender config >|= check_result "An ok is produced." (Ok ())
+    let send = Mg.backend ~client config in
+    email body |> send >|= check_result "An ok is produced." (Ok ())
   in
   test
 
