@@ -128,9 +128,8 @@ let test_bad_credentials _ () =
      credentials, the send fails with an error. *)
   let client =
     post text_body `Unauthorized (Body.of_string bad_credentials_response) in
-  let sender = Sg.client_send client in
-  email text_body
-  |> sender config
+  let send = Sg.backend ~client config in
+  text_body |> email |> send
   >|= check_result "An error is produced." (Error bad_credentials_response)
 
 let bad_data_response =
@@ -154,17 +153,16 @@ let test_bad_data _ () =
      but if Sendgrid changed their schema this is the error we would
      expect to see. *)
   let client = post text_body `Bad_request (Body.of_string bad_data_response) in
-  let sender = Sg.client_send client in
-  email text_body
-  |> sender config
+  let send = Sg.backend ~client config in
+  text_body |> email |> send
   >|= check_result "An error is produced." (Error bad_data_response)
 
 let test_success body =
   let test _ () =
     (* The backend produces an ok when Sendgrid replies with a 202 Accepted.*)
     let client = post body `Accepted Body.empty in
-    let sender = Sg.client_send client in
-    email body |> sender config >|= check_result "An ok is produced." (Ok ())
+    let send = Sg.backend ~client config in
+    body |> email |> send >|= check_result "An ok is produced." (Ok ())
   in
   test
 

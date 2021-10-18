@@ -1,6 +1,6 @@
 module Config = Letters.Config
 
-let send config (e : Tidy_email.Email.t) =
+let backend config (e : Tidy_email.Email.t) =
   let sender = e.sender in
   let recipients = List.map (fun r -> Letters.To r) e.recipients in
   let subject = e.subject in

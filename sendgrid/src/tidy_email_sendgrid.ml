@@ -5,6 +5,12 @@ type config = {
   base_url : string;
 }
 
+type http_post =
+  ?body:Cohttp_lwt.Body.t ->
+  ?headers:Cohttp.Header.t ->
+  Uri.t ->
+  (Cohttp.Response.t * Cohttp_lwt.Body.t) Lwt.t
+
 let body ~recipients ~subject ~sender ~(content : Email.body) =
   let to_block = List.map (fun r -> ("email", `String r)) recipients in
   let content_block =
@@ -27,13 +33,13 @@ let body ~recipients ~subject ~sender ~(content : Email.body) =
       ] in
   Yojson.Basic.to_string body
 
-type http_post =
-  ?body:Cohttp_lwt.Body.t ->
-  ?headers:Cohttp.Header.t ->
-  Uri.t ->
-  (Cohttp.Response.t * Cohttp_lwt.Body.t) Lwt.t
-
-let client_send (post : http_post) (conf : config) (e : Tidy_email.Email.t) =
+let backend ?client conf (e:Tidy_email.Email.t) =
+  let post = Option.value
+      ~default:
+        (Cohttp_lwt_unix.Client.post
+           ~ctx:Cohttp_lwt_unix.Net.default_ctx
+           ~chunked:false)
+      client in
   let headers =
     Cohttp.Header.of_list
       [
@@ -56,8 +62,3 @@ let client_send (post : http_post) (conf : config) (e : Tidy_email.Email.t) =
   | 202 ->
     Lwt.return_ok ()
   | _ -> Lwt.return_error resp_content
-
-let send =
-  client_send
-    (Cohttp_lwt_unix.Client.post ~ctx:Cohttp_lwt_unix.Net.default_ctx
-       ~chunked:false)

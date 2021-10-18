@@ -11,7 +11,13 @@ type config = {
 type http_post =
   ?body:Body.t -> ?headers:Header.t -> Uri.t -> (Response.t * Body.t) Lwt.t
 
-let client_send (post : http_post) (conf : config) (e : Tidy_email.Email.t) =
+let backend ?client (conf : config) (e : Tidy_email.Email.t) =
+  let post = Option.value
+      ~default:
+        (Cohttp_lwt_unix.Client.post
+           ~ctx:Cohttp_lwt_unix.Net.default_ctx
+           ~chunked:false)
+      client in
   let param =
     match e.body with
     | Text t -> [("text", [t])]
@@ -34,8 +40,3 @@ let client_send (post : http_post) (conf : config) (e : Tidy_email.Email.t) =
   match Response.status response with
   | `OK -> Lwt.return_ok ()
   | _ -> Lwt.return_error body_content
-
-let send =
-  client_send
-    (Cohttp_lwt_unix.Client.post ~ctx:Cohttp_lwt_unix.Net.default_ctx
-       ~chunked:false)
