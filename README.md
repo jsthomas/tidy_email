@@ -1,42 +1,55 @@
 # tidy_email
 
 This library wraps several different email services and simplifies the
-process of sending mail.
+process of sending mail. Let's look at an example:
 
-The library defines three important entities:
-- an email type
-- a service-specific configuration record
-- a send function
+```ocaml
+module Email = Tidy_email.Email
+module Mailgun = Tidy_email_mailgun
 
-A send function consumes an email and produces an `Lwt_result`
-capturing whether the message was successfully sent.
+let send = Mailgun.backend {
+    api_key = Sys.getenv "MAILGUN_API_KEY";
+    base_url = Sys.getenv "MAILGUN_BASE_URL";
+  }
+
+let () =
+  let email =
+    Email.make
+      ~sender:"no-reply@mg.glenmeretechnologies.com"
+      ~recipient:"jsthomas@protonmail.com"
+      ~subject:"A small message"
+      ~body:(Email.Text "Hi there!") in
+  let u = Lwt_main.run (send email) in
+  match u with
+  | Ok _ -> print_string "Send succeeded."; exit 0
+  | Error _ -> print_string "Send failed."; exit 1
+```
+
+The library defines two main entities an email type and an email
+backend. Email backends are defined so that switching email providers
+requires minimal changes.
 
 Currently, `tidy_email` supports three different email services:
 
 - [Mailgun REST API](https://documentation.mailgun.com/en/latest/api_reference.html)
-- [Sendgrid REST API](https://docs.sendgrid.com/for-developers/sending-email/api-getting-started)
+- [SendGrid REST API](https://docs.sendgrid.com/for-developers/sending-email/api-getting-started)
 - SMTP, via [`letters`](https://github.com/oxidizing/letters/).
 
 Each service is factored out into its own library; for example, to
-integrate with Mailgun, use `tidy_email_mailgun`.
+integrate with SendGrid, use `tidy_email_sendgrid`.
 
-Using `tidy_email` makes it easier to hide some details of your email
-provider from the rest of your application. This library can simplify
-changing email services, should you need to do so.
-
-
-## About Sendgrid and Mailgun
+## About SendGrid and Mailgun
 
 First things first! Here are links to use for setting up a new mail
 plan:
 
 - To sign up for Mailgun, click [here](https://signup.mailgun.com/new/signup).
-- To sign up for Sendgrid, click [here](https://sendgrid.com/pricing/).
+- To sign up for SendGrid, click [here](https://sendgrid.com/pricing/).
 
 The sections below contain a more extensive comparison of these two
 services.
 
-Both Sendgrid and Mailgun have extensive REST APIs (in fact, they also
+Both SendGrid and Mailgun have extensive REST APIs (in fact, they also
 support SMTP but recommend their APIs). These services can receive
 email as well as sending it. Currently, this library only covers
 **sending** email. Advanced features like managing email templates are
@@ -55,7 +68,7 @@ If you don't plan to use a sandbox domain, you will first need to
 register a domain (Route53 is a reasonable choice, most domains cost
 ~12 USD per year). In this case, most email providers will need you to
 create some combination of DNS records (typically TXT, CNAME, and MX)
-in order for email to work. Both Sendgrid and Mailgun provide
+in order for email to work. Both SendGrid and Mailgun provide
 straightforward instructions about which records to create.
 
 If you're planning on sending marketing email or other automated
@@ -89,24 +102,24 @@ configure which addresses the domain is allowed to send to. Expect
 messages from a sandbox domain to go to your spam folder (the relevant
 DNS records can't get set correctly because the domain is temporary).
 
-### Sendgrid
+### SendGrid
 
-Sendgrid requires a company email and website when setting up an
+SendGrid requires a company email and website when setting up an
 account. Using a generic email account (e.g. Protonmail, Gmail, etc.)
 for this purpose is likely to result in your account getting frozen
 for several days while you negotiate with their security/audit team.
 
 If you already have a domain and company email, registering with a
-Sendgrid account is fast. Sendgrid's REST API is somewhat more
+SendGrid account is fast. SendGrid's REST API is somewhat more
 complicated than the one provided by Mailgun. Both services have a
 free tier and aren't terribly expensive for small volumes of mail.
 
-To use Sendgrid with `tidy_email`, you will need:
+To use SendGrid with `tidy_email`, you will need:
 
 1. An API key. You'll need to create this in the console and set the
    permissions accordingly.
 
-2. The URL for the Sendgrid API. As of this writing, this is
+2. The URL for the SendGrid API. As of this writing, this is
    `https://api.sendgrid.com/v3/mail/send`, but check the console to
    confirm.
 
@@ -122,7 +135,7 @@ service that isn't supported by name yet.
 
 ## Examples
 
-Each backend module (Mailgun, Sendgrid, and SMTP) contains a folder of
+Each backend module (Mailgun, SendGrid, and SMTP) contains a folder of
 examples. To run an example, copy the relevant `send.sh.template` file
 to `send.sh` and populate the missing environment
 variables. Running `./send.sh` should print:
@@ -150,12 +163,12 @@ coverage via `bisect_ppx`. The coverage report will appear under
 The specifications for the end to end tests are captured in the
 `/examples` folder of each library. It's unfortunate that these tests
 can't be captured in a public CI system, but testing requires
-Mailgun/Sendgrid credentials that can't easily be shared.
+Mailgun/SendGrid credentials that can't easily be shared.
 
 ## Other Design Suggestions
 
 Sending an email is a fairly expensive operation; A REST API call to
-Mailgun or Sendgrid may take ~500 ms or more. You may wish to use
+Mailgun or SendGrid may take ~500 ms or more. You may wish to use
 `tidy_email` together with some sort of queuing system and/or a
 background worker. This [blog
 post](https://jsthomas.github.io/ocaml-email.html) provides
@@ -178,8 +191,7 @@ Tagging comments with `@jsthomas` is a good way to get my attention.
 ## Contributing
 
 Pull requests and other contributions (examples, bug reports, better
-documentation) are welcome. I am working on adding docs to make the
-contribution process easier.
+documentation) are welcome.
 
 ## Acknowledgements
 

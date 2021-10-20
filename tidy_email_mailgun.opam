@@ -9,9 +9,9 @@ license: "MIT"
 homepage: "https://github.com/jsthomas/tidy_email"
 bug-reports: "https://github.com/jsthomas/tidy_email/issues"
 depends: [
-  "bisect_ppx" {dev & >= "2.5.0"}
-  "alcotest-lwt" {dev & >= "1.4.0"}
-  "cmdliner" {dev & >= "1.0.4"}
+  "bisect_ppx" {>= "2.5.0" & dev}
+  "alcotest-lwt" {>= "1.4.0" & with-test}
+  "cmdliner" {>= "1.0.4" & with-test}
   "dune" {>= "2.8" & >= "2.0"}
   "ocaml" {>= "4.11.0"}
   "cohttp" {>= "2.5.5"}

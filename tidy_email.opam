@@ -15,7 +15,7 @@ license: "MIT"
 homepage: "https://github.com/jsthomas/tidy_email"
 bug-reports: "https://github.com/jsthomas/tidy_email/issues"
 depends: [
-  "bisect_ppx" {dev & >= "2.5.0"}
+  "bisect_ppx" {>= "2.5.0" & dev}
   "dune" {>= "2.8" & >= "2.0"}
   "ocaml" {>= "4.11.0"}
   "lwt" {>= "5.4.2"}
