@@ -153,17 +153,17 @@ and then a single message should appear in the destination inbox.
 There are two levels of testing in this project:
 
 1. Unit tests defined using `alcotest`.
-2. End-to-end tests that are run manually by maintainers.
+2. Integration tests that run as part of Github Actions CI on a merge.
 
 To run the unit tests, navigate to the root of the repository and run
 `dune test`. Running `./coverage.sh` will generate a summary of test
 coverage via `bisect_ppx`. The coverage report will appear under
 `_coverage/index.html`.
 
-The specifications for the end to end tests are captured in the
-`/examples` folder of each library. It's unfortunate that these tests
-can't be captured in a public CI system, but testing requires
-Mailgun/SendGrid credentials that can't easily be shared.
+The specifications for the integration tests are captured in the
+`/examples` folder of each library. Although the API keys used by
+Github Actions can't be shared, you can set up your own
+Mailgun/Sendgrid account to run tests against your own keys.
 
 ## Other Design Suggestions
 
